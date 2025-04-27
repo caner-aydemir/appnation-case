@@ -59,7 +59,7 @@ const WeeklyWeatherCard: React.FC<WeeklyWeatherCardProps> = ({
               </div>
 
               <div className="flex items-center gap-1 w-24 justify-center text-gray-900 dark:text-white font-bold">
-                {tempMax}°
+                °{tempMax}
               </div>
 
               <div className="w-12 text-center">
