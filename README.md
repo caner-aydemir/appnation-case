@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌦️ Weather Application
 
-## Getting Started
+🔗 **Live Demo:** [https://appnation-case.vercel.app](https://appnation-case.vercel.app)
 
-First, run the development server:
+Welcome to the **Weather App**!  
+A modern, responsive, dark/light mode supported weather dashboard built with **Next.js 15**, **React 19**, **TypeScript**, and more.
+
+<div align="center">
+  
+| Dark Mode | Light Mode |
+|:---------:|:----------:|
+| ![Opera Anlık Görüntü_2025-04-28_020719_appnation-case vercel app](https://github.com/user-attachments/assets/20bb0684-921e-46ae-b1e7-88147c23870a) | ![Opera Anlık Görüntü_2025-04-28_020924_appnation-case vercel app](https://github.com/user-attachments/assets/ffb5692d-c626-405c-958f-39e4c8c30526) |
+
+</div>
+
+---
+
+## 🚀 Features
+
+- 🔎 **Real-time city search** with autocomplete (powered by GeoDB Cities API)
+- 🧭 **Current weather information** (OpenWeatherMap)
+- ⚡ **Optimized performance** (lazy loading, API caching with React Query)
+- 📂 Clean code structure & modular components
+- 🎨 **Light / Dark mode toggle**
+- 📱 **Fully responsive** (desktop, tablet, mobile)
+- 🕰️ **Hourly weather forecast** (next 6 hours)
+- 📅 **5-Day weather forecast**
+- 🌡️ **Temperature unit toggle** (°C/°F)
+- 📚 **Search history** (last 5 searched cities saved in localStorage)
+- 🌍 **SEO-friendly** meta tags
+
+
+---
+
+## 🛠️ Tech Stack
+
+- **Next.js 15** (App Router, Server Actions)
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS** (utility-first styling)
+- **Redux Toolkit** (state management for selected city and search history)
+- **React Query** (API data caching, error/loading handling)
+- **Framer Motion** (smooth animations)
+- **Next-Themes** (dark/light mode management)
+- **Axios** (API requests)
+- **Lodash.debounce** (optimized input debounce)
+- **React Toastify** (toast notifications)
+
+---
+
+## 📦 Installation
 
 ```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/appnation-weather-app.git
+cd appnation-weather-app
+
+# 2. Install dependencies
+npm install
+
+# 3. Create .env.local file
+NEXT_PUBLIC_API_BASE_URL=https://your-vercel-app.vercel.app
+WEATHER_API_KEY=your_openweathermap_api_key
+NEXT_PUBLIC_GEODB_API_KEY=your_geodb_api_key
+
+# 4. Run the project
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📜 Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You need to configure your `.env.local`:
 
-## Learn More
+```env
+NEXT_PUBLIC_API_BASE_URL=https://your-vercel-app.vercel.app
+WEATHER_API_KEY=your_openweathermap_api_key
+NEXT_PUBLIC_GEODB_API_KEY=your_geodb_api_key
+```
 
-To learn more about Next.js, take a look at the following resources:
+- **OpenWeatherMap API Key:** [Sign Up Here](https://openweathermap.org/api)
+- **GeoDB Cities API Key:** [Sign Up Here](https://rapidapi.com/wirefreethought/api/geodb-cities)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🖥️ Deployment
 
-## Deploy on Vercel
+- Deployed live on **Vercel** 🚀
+- Build command: `npm run build`
+- Start command: `npm run start`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👨‍💻 Author
+
+- [Caner Aydemir](https://github.com/caner-aydemir)
+
+---
+
+## ⭐ Feedback
+
+If you like this project, leave a ⭐ star!  
+Contributions are welcome too. 🚀
