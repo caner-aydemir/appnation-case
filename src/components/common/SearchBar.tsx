@@ -1,51 +1,101 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { SearchNormal1, Refresh2 } from "iconsax-reactjs";
+import { useQuery } from "@tanstack/react-query";
+import debounce from "lodash.debounce";
+import { searchCities } from "@/services/cities/citiesService";
+import SuggestionsDropdown from "./SuggestionsDropdown";
 
 interface SearchBarProps {
   onSearch: (cityName: string) => void;
   isLoading: boolean;
 }
 
-const SearchBar = ({ onSearch, isLoading }: SearchBarProps) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [city, setCity] = useState("");
+  const [debouncedCity, setDebouncedCity] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isCitySelected, setIsCitySelected] = useState(false);
   const router = useRouter();
+  const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  const handleSearch = useCallback(() => {
-    if (city.trim() === "") return;
+  const debounceSearch = useCallback(
+    debounce((value: string) => {
+      setDebouncedCity(value);
+    }, 400),
+    []
+  );
 
-    if (city.length > 32) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setCity(value);
+    setIsCitySelected(false);
+
+    if (value.length > 32) {
       setError("City name cannot exceed 32 characters!");
-      return;
+    } else {
+      setError(null);
     }
 
-    setError(null);
+    debounceSearch(value);
+  };
+
+  const { data: suggestions = [], isLoading: isSuggestionsLoading } = useQuery({
+    queryKey: ["searchCities", debouncedCity],
+    queryFn: () => searchCities(debouncedCity),
+    enabled: debouncedCity.length >= 2,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const handleSearch = useCallback(() => {
+    if (!isCitySelected) return;
+
     onSearch(city);
 
     const params = new URLSearchParams(window.location.search);
     params.set("city", city);
     router.replace(`?${params.toString()}`, { scroll: false });
+
     setCity("");
-  }, [city, onSearch, router]);
+    setIsCitySelected(false);
+  }, [city, onSearch, router, isCitySelected]);
+
+  const handleSuggestionClick = (selectedCity: string) => {
+    setCity("");
+    setIsCitySelected(true);
+    setError(null);
+
+    onSearch(selectedCity);
+
+    const params = new URLSearchParams(window.location.search);
+    params.set("city", selectedCity);
+    router.replace(`?${params.toString()}`, { scroll: false });
+
+    setDebouncedCity("");
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(event.target as Node)
+      ) {
+        setIsCitySelected(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <div className="w-full max-w-md flex flex-col items-center gap-2">
+    <div className="w-full max-w-md flex flex-col items-center gap-2 relative">
       <div className="flex w-full">
         <input
           type="text"
           value={city}
-          onChange={(e) => {
-            const value = e.target.value;
-            setCity(value);
-
-            if (value.length > 32) {
-              setError("City name cannot exceed 32 characters!");
-            } else {
-              setError(null);
-            }
-          }}
+          onChange={handleInputChange}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
@@ -53,23 +103,22 @@ const SearchBar = ({ onSearch, isLoading }: SearchBarProps) => {
             }
           }}
           placeholder="Enter city name"
-          className="w-full px-4 py-2 rounded-l-lg bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 focus:outline-none"
+          className="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white border border-gray-300 dark:border-gray-600 focus:outline-none"
         />
-
-        <button
-          onClick={handleSearch}
-          disabled={!!error || isLoading}
-          className={`px-4 py-2 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white rounded-r-lg ${
-            (!!error || isLoading) && "opacity-50 cursor-not-allowed"
-          }`}
-        >
-          {isLoading ? (
-            <Refresh2 className="animate-spin" size="20" variant="Outline" />
-          ) : (
-            <SearchNormal1 size="20" variant="Outline" />
-          )}
-        </button>
       </div>
+
+      {debouncedCity.length >= 2 && (
+        <div
+          ref={suggestionsRef}
+          className="absolute top-full mt-1 w-full bg-white dark:bg-gray-700 shadow-lg rounded-lg z-50 max-h-60 overflow-y-auto"
+        >
+          <SuggestionsDropdown
+            suggestions={suggestions}
+            isLoading={isSuggestionsLoading}
+            onSuggestionClick={handleSuggestionClick}
+          />
+        </div>
+      )}
 
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
     </div>

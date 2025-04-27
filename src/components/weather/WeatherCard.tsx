@@ -8,7 +8,7 @@ interface WeatherCardProps {
   weatherData: WeatherData;
 }
 
-const WeatherCard = ({ weatherData }: WeatherCardProps) => {
+const WeatherCard: React.FC<WeatherCardProps> = ({ weatherData }) => {
   const { isCelsius } = useTemperature();
 
   const {
