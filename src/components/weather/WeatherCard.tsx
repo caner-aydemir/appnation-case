@@ -50,7 +50,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherData }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
         <div className="flex flex-col gap-4">
-          <InfoItem label="High/Low" value={`${tempMax}° / ${tempMin}°`} />
+          <InfoItem label="High/Low" value={`°${tempMax} / °${tempMin}`} />
           <InfoItem label="Humidity" value={`${humidity}%`} />
           <InfoItem label="Pressure" value={`${pressure} hPa`} />
           <InfoItem label="Visibility" value={`${visibilityKm} km`} />
@@ -61,7 +61,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherData }) => {
             Hissedilen
           </p>
           <p className="text-6xl font-bold text-gray-900 dark:text-white">
-            {feelsLikeTemp}°
+            °{feelsLikeTemp}
           </p>
         </div>
 

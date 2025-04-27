@@ -53,7 +53,7 @@ const HourlyWeatherCard: React.FC<HourlyWeatherCardProps> = ({
               </div>
 
               <div className="font-bold text-gray-900 dark:text-white text-lg w-12 text-center">
-                {temp}°
+                °{temp}
               </div>
 
               <div className="w-12 text-center">
