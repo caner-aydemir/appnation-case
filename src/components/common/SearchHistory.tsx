@@ -10,7 +10,7 @@ interface SearchHistoryProps {
   onCityClick: (cityName: string) => void;
 }
 
-const SearchHistory = ({ onCityClick }: SearchHistoryProps) => {
+const SearchHistory: React.FC<SearchHistoryProps> = ({ onCityClick }) => {
   const dispatch = useDispatch();
   const searchHistory = useSelector(
     (state: RootState) => state.searchHistory.history

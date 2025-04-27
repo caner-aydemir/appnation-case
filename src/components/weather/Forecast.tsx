@@ -12,7 +12,10 @@ interface ForecastProps {
   forecastError: unknown;
 }
 
-const Forecast = ({ forecastData, isForecastLoading }: ForecastProps) => {
+const Forecast: React.FC<ForecastProps> = ({
+  forecastData,
+  isForecastLoading,
+}) => {
   const { isCelsius } = useTemperature();
 
   if (isForecastLoading) {
