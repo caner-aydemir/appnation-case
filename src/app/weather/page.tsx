@@ -1,53 +1,67 @@
 "use client";
-import React from "react";
-import SearchBar from "@/components/SearchBar";
-import { motion } from "framer-motion";
+
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import {
+  getForecastByCity,
+  getWeatherByCity,
+} from "@/services/weather/weatherService";
+import SearchBar from "@/components/common/SearchBar";
+import WeatherSkeleton from "@/components/weather/WeatherCardSkeleton";
+import dynamic from "next/dynamic";
+import AppNationHeader from "@/components/layout/AppNationHeader";
+import HourlyWeatherSkeleton from "@/components/weather/HourlyWeatherSkeleton";
+
+const WeatherCard = dynamic(() => import("@/components/weather/WeatherCard"), {
+  loading: () => <WeatherSkeleton />,
+});
+const Forecast = dynamic(() => import("@/components/weather/Forecast"), {
+  loading: () => <HourlyWeatherSkeleton />,
+});
+
 const WeatherDashboard = () => {
-  const handleSearch = (city: string) => {
-    console.log("Searching for city:", city);
-    // Buraya ileride API Fetch ekleyeceğiz
-  };
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  };
+  const [city, setCity] = useState("London");
 
-  const letterAnimation = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  };
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["weather", city],
+    queryFn: () => getWeatherByCity(city),
+    enabled: !!city,
+    retry: false, // Optional
+  });
+  const {
+    data: forecastData,
+    isLoading: isForecastLoading,
+    error: forecastError,
+  } = useQuery({
+    queryKey: ["forecast", city],
+    queryFn: () => getForecastByCity(city),
+    enabled: !!city,
+    retry: false,
+  });
 
-  const text = "AppNation";
+  const handleSearch = (cityName: string) => {
+    setCity(cityName);
+  };
 
   return (
-    <section className="flex flex-col justify-center items-center gap-2 p-2">
-      <div className="flex gap-2 justify-center">
-        <p className="text-2xl italic rotate-4 font-bold">N</p>
-        <motion.div variants={container} initial="hidden" animate="show">
-          {text.split("").map((char, index) => {
-            if (char === " ") {
-              return <span key={index} className="w-2" />;
-            }
-            return (
-              <motion.span
-                key={index}
-                variants={letterAnimation}
-                className="text-2xl font-semibold dark:text-white text-black"
-                style={{ fontFamily: "var(--h1--font-family)" }}
-              >
-                {char}
-              </motion.span>
-            );
-          })}
-        </motion.div>
-      </div>
-
+    <section className="flex flex-col justify-center items-center gap-4 p-6">
+      <AppNationHeader />
       <SearchBar onSearch={handleSearch} />
+
+      {isLoading && <WeatherSkeleton />}
+
+      {error && (
+        <p className="text-red-500 text-center mt-4">
+          Failed to fetch weather data. Please try again.
+        </p>
+      )}
+
+      {data && !isLoading && <WeatherCard weatherData={data} />}
+      <Forecast
+        forecastData={forecastData}
+        isForecastLoading={isForecastLoading}
+        forecastError={forecastError}
+      />
     </section>
   );
 };
