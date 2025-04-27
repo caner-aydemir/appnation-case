@@ -109,21 +109,23 @@ const WeatherDashboard = () => {
   };
 
   return (
-    <section className="flex flex-col justify-center items-center gap-4 p-6">
+    <>
       <ToastContainer position="top-right" autoClose={4000} />
-      <AppNationHeader />
-      <SearchBar onSearch={handleSearch} isLoading={isLoading} />
-      <SearchHistory onCityClick={handleSearch} />
-      {isLoading && <WeatherSkeleton />}
-      {selectedWeatherData && !isLoading && (
-        <DynamicWeatherCard weatherData={selectedWeatherData} />
-      )}
-      <DynamicForecast
-        forecastData={selectedForecastData}
-        isForecastLoading={isForecastLoading}
-        forecastError={forecastError}
-      />
-    </section>
+      <section className="flex flex-col justify-center items-center gap-4 p-4">
+        <AppNationHeader />
+        <SearchBar onSearch={handleSearch} isLoading={isLoading} />
+        <SearchHistory onCityClick={handleSearch} />
+        {isLoading && <WeatherSkeleton />}
+        {selectedWeatherData && !isLoading && (
+          <DynamicWeatherCard weatherData={selectedWeatherData} />
+        )}
+        <DynamicForecast
+          forecastData={selectedForecastData}
+          isForecastLoading={isForecastLoading}
+          forecastError={forecastError}
+        />
+      </section>
+    </>
   );
 };
 
