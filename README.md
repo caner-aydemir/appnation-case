@@ -14,6 +14,20 @@ A modern, responsive, dark/light mode supported weather dashboard built with **N
 </div>
 
 ---
+## 📋 Version Control & Git Workflow
+
+Throughout the project development:
+
+- Followed a **professional Git workflow** with clear and meaningful commit messages.
+- Used **feature branches** (`chore/search-bar`, `feature/weather-dashboard`, etc.) for organized development.
+- **Atomic commits** were made to ensure every commit has a single responsibility.
+- Maintained a clean, readable, and chronological **commit history** to easily track changes.
+- **Pull Requests** were used to simulate real-world team collaboration practices.
+- Prioritized **code quality**, **maintainability**, and **readability** during all code reviews and merges.
+
+> 🏆 This approach ensures a scalable, collaborative-ready project that aligns with industry standards for production-ready applications.
+
+---
 
 ## 🚀 Features
 
