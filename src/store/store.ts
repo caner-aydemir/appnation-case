@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeReducer from "./features/themeSlice";
+import selectedWeatherReducer from "./reducers/selectedWeatherReducer";
+import selectedForecastReducer from "./reducers/selectedForecastReducer";
+import searchHistoryReducer from "./reducers/searchHistoryReducer";
 
 export const store = configureStore({
   reducer: {
-    theme: themeReducer,
+    selectedWeather: selectedWeatherReducer,
+    selectedForecast: selectedForecastReducer,
+    searchHistory: searchHistoryReducer,
   },
 });
 

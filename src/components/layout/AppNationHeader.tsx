@@ -42,7 +42,7 @@ const AppNationHeader = () => {
         variants={container}
         initial="hidden"
         animate="show"
-        className="hidden md:flex" // ⭐ burası değişti
+        className="hidden md:flex"
       >
         {text.split("").map((char, index) => {
           if (char === " ") {

@@ -45,15 +45,15 @@ const WeatherCard = ({ weatherData }: WeatherCardProps) => {
       className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 w-full max-w-4xl mx-auto"
     >
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-        {name}, {country} için Bugünün Hava Durumu
+        Today &apos;s Weather in {name}, {country}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
         <div className="flex flex-col gap-4">
-          <InfoItem label="Yüksek/Düşük" value={`${tempMax}° / ${tempMin}°`} />
-          <InfoItem label="Nem" value={`${humidity}%`} />
-          <InfoItem label="Basınç" value={`${pressure} hPa`} />
-          <InfoItem label="Görüş Mesafesi" value={`${visibilityKm} km`} />
+          <InfoItem label="High/Low" value={`${tempMax}° / ${tempMin}°`} />
+          <InfoItem label="Humidity" value={`${humidity}%`} />
+          <InfoItem label="Pressure" value={`${pressure} hPa`} />
+          <InfoItem label="Visibility" value={`${visibilityKm} km`} />
         </div>
 
         <div className="flex flex-col items-center justify-center">
@@ -66,10 +66,10 @@ const WeatherCard = ({ weatherData }: WeatherCardProps) => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <InfoItem label="Rüzgar" value={`${Math.round(speed)} km/s`} />
-          <InfoItem label="Açıklama" value={`${formattedDescription}`} />
-          <InfoItem label="Çiy Noktası" value="-" />
-          <InfoItem label="Ayın Evreleri" value="-" />
+          <InfoItem label="Wind" value={`${Math.round(speed)} km/h`} />
+          <InfoItem label="Description" value={`${formattedDescription}`} />
+          <InfoItem label="Dew Point" value="-" />
+          <InfoItem label="Moon Phases" value="-" />
         </div>
       </div>
     </motion.div>

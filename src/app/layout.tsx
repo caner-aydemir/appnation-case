@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Providers from "@/providers/Providers"; // 👈 doğru Provider importu
+import Providers from "@/providers/Providers";
 
 export const metadata: Metadata = {
   title: "Next Themes Clean Setup",
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className="min-h-screen w-full dark:bg-gray-950 bg-amber-50 transition-all duration-700">
         <Providers>{children}</Providers>
       </body>
     </html>

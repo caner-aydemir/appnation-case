@@ -7,28 +7,16 @@ import WeeklyWeatherCard from "@/components/weather/WeeklyWeatherCard";
 import HourlyWeatherSkeleton from "@/components/weather/HourlyWeatherSkeleton";
 
 interface ForecastProps {
-  forecastData: ForecastData | undefined;
+  forecastData?: ForecastData | null;
   isForecastLoading: boolean;
   forecastError: unknown;
 }
 
-const Forecast = ({
-  forecastData,
-  isForecastLoading,
-  forecastError,
-}: ForecastProps) => {
+const Forecast = ({ forecastData, isForecastLoading }: ForecastProps) => {
   const { isCelsius } = useTemperature();
 
   if (isForecastLoading) {
     return <HourlyWeatherSkeleton />;
-  }
-
-  if (forecastError) {
-    return (
-      <p className="text-red-500 text-center mt-4">
-        Failed to fetch forecast data. Please try again later.
-      </p>
-    );
   }
 
   if (!forecastData) {

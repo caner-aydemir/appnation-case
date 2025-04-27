@@ -29,7 +29,7 @@ const HourlyWeatherCard: React.FC<HourlyWeatherCardProps> = ({
       className="bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-6 w-full max-w-4xl mx-auto"
     >
       <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-        Saatlik Tahmin
+        Hourly Forecast
       </h3>
 
       <div className="flex flex-col divide-y divide-gray-300 dark:divide-gray-700">

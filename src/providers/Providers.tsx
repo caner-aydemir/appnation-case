@@ -17,13 +17,11 @@ export default function Providers({ children }: { children: ReactNode }) {
       <QueryClientProvider client={queryClient}>
         <NextThemeProvider attribute="class" defaultTheme="light">
           <TemperatureProvider>
-            <div className="min-h-screen w-full dark:bg-gray-950 bg-amber-50 transition-all duration-700">
-              <div className="absolute top-4 right-4 flex flex-row md:flex-col gap-2 items-center">
-                <ThemeToggle />
-                <TemperatureToggle />
-              </div>
-              {children}
+            <div className="absolute top-4 right-4 flex flex-row md:flex-col gap-2 items-center">
+              <ThemeToggle />
+              <TemperatureToggle />
             </div>
+            {children}
           </TemperatureProvider>
         </NextThemeProvider>
       </QueryClientProvider>
