@@ -15,7 +15,11 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <ReduxProvider store={store}>
       <QueryClientProvider client={queryClient}>
-        <NextThemeProvider attribute="class" defaultTheme="light">
+        <NextThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
           <TemperatureProvider>
             <div className="absolute top-4 right-4 flex flex-row md:flex-col gap-2 items-center">
               <ThemeToggle />
