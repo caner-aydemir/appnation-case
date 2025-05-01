@@ -58,7 +58,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ weatherData }) => {
 
         <div className="flex flex-col items-center justify-center">
           <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">
-            Hissedilen
+            Felt Temperature
           </p>
           <p className="text-6xl font-bold text-gray-900 dark:text-white">
             °{feelsLikeTemp}
